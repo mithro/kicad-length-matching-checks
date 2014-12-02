@@ -39,7 +39,7 @@ HOW TO USE:
 
 * Name each net using the naming scheme <pairname>_<pairsubpart> using
   an underscore, for instance the net names LVDS_CLK_N and LVDS_CLK_P
-  will belong to the same "LVDS_CLK" pair. Add these to the length
+  will belong to the same "LVDS_CLK" pair. Add these nets to the length
   matching netclass.
 
   Actually, "pairs" can have more than 2 nets in them so you could
