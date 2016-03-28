@@ -186,8 +186,11 @@ def test_pairs(netclass, intra_tolerance, inter_tolerance, pairs):
     delta = maxlen - minlen
     meets = delta < inter_tolerance
 
+    matches = True
+
     print_color(BRIGHTGREEN if meets else BRIGHTRED, "%s -> %s INTER-PAIR TOLERANCE %.2f (max variance %.2f)" % (netclass, "MEETS" if meets else "FAILS", nm_to_mm(inter_tolerance), nm_to_mm(delta)))
     if not meets:
+        matches = False
         # print mean length of each pair
         for pair in pairs:
             print("  %s mean length %.1f" % (get_pairname(pair[0][0]), nm_to_mm(mean([p[1] for p in pair]))))
@@ -202,8 +205,11 @@ def test_pairs(netclass, intra_tolerance, inter_tolerance, pairs):
                                                                            nm_to_mm(intra_tolerance), nm_to_mm(tracedelta)))
         # print comparison of each net length to the mean length in this pair
         if not meets:
+            matches = False
             for p in pair:
                 print_color(RED, "        %s length %.2f (%.2f)" % (p[0], nm_to_mm(p[1]), nm_to_mm(p[1]-meantrace)))
+
+    return matches
 
 
 if __name__ == "__main__":
@@ -235,5 +241,7 @@ if __name__ == "__main__":
                     continue
             except KeyError:
                 pass
-            test_pairs(netclass, intra, inter, pairs)
+            matches = test_pairs(netclass, intra, inter, pairs)
+            if "--once" in sys.argv:
+                sys.exit(not matches)
         oldprops = props
