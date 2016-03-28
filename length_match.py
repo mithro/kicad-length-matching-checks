@@ -145,6 +145,9 @@ def test_netclass(netclass, tolerance, nets):
     for (net,netlen) in nets:
         print("   %s %.2fmm (%s%.2fmm)" % (net,nm_to_mm(netlen),"+" if netlen > medlen else "",  nm_to_mm(netlen-medlen)))
 
+    return meets
+
+
 if __name__ == "__main__":
     try:
         filepath = sys.argv[1]
@@ -174,5 +177,7 @@ if __name__ == "__main__":
                     continue
             except KeyError:
                 pass
-            test_netclass(netclass, tolerance, nets)
+            matches = test_netclass(netclass, tolerance, nets)
+            if "--once" in sys.argv:
+                sys.exit(not matches)
         oldprops = props
