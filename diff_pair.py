@@ -216,7 +216,7 @@ if __name__ == "__main__":
     try:
         filepath = sys.argv[1]
     except IndexError:
-        print("Usage: %s <boardname.kicad_pcb>" % sys.argv[0])
+        print("Usage: %s <boardname.kicad_pcb> [--once]" % sys.argv[0])
         sys.exit(1)
     oldprops = {}
     first = True
