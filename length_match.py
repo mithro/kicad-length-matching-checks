@@ -169,6 +169,7 @@ if __name__ == "__main__":
             time.sleep(0.05)
 
         first = False
+        allmatches = True
         props = get_board_properties(filepath)
         for (netclass, (tolerance, nets)) in props.items():
             # only re-test any netclasses whose contents have changed
@@ -177,7 +178,7 @@ if __name__ == "__main__":
                     continue
             except KeyError:
                 pass
-            matches = test_netclass(netclass, tolerance, nets)
-            if "--once" in sys.argv:
-                sys.exit(not matches)
+            allmatches = test_netclass(netclass, tolerance, nets) and allmatches
+        if "--once" in sys.argv:
+            sys.exit(not allmatches)
         oldprops = props
