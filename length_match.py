@@ -133,6 +133,8 @@ def test_netclass(netclass, tolerance, nets):
     Test the given netclass name for the given length matching tolerances.
     nets is a list of (netname, length) for all nets in the netclass.
     """
+    nets.sort()
+
     minlen = min(net[1] for net in nets)
     maxlen = max(net[1] for net in nets)
     delta = maxlen - minlen

@@ -180,6 +180,8 @@ def test_pairs(netclass, intra_tolerance, inter_tolerance, pairs):
     Test the given netclass name for the given differential pair tolerances
     nets is a list of (netname, length) for all nets in the netclass.
     """
+    pairs.sort()
+
     all_lengths = [[p[1] for p in pair] for pair in pairs]
     minlen = min([min(p[1] for p in pair) for pair in pairs])
     maxlen = max([max(p[1] for p in pair) for pair in pairs])
