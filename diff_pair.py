@@ -237,7 +237,7 @@ if __name__ == "__main__":
         first = False
         allmatches = True
         props = get_board_pairs(filepath)
-        for (netclass, (intra, inter, pairs)) in props.items():
+        for (netclass, (intra, inter, pairs)) in sorted(props.items()):
             # only re-test any netclasses whose contents have changed
             try:
                 if str(oldprops[netclass]) == str(props[netclass]):

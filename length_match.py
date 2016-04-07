@@ -173,7 +173,7 @@ if __name__ == "__main__":
         first = False
         allmatches = True
         props = get_board_properties(filepath)
-        for (netclass, (tolerance, nets)) in props.items():
+        for (netclass, (tolerance, nets)) in sorted(props.items()):
             # only re-test any netclasses whose contents have changed
             try:
                 if oldprops[netclass] == (tolerance, nets):
