@@ -159,10 +159,11 @@ def get_tolerance(classname):
 
 def get_pairname(netname):
     "Return a 'pair' name for a netname like SIGNAL for SIGNAL_P or SIGNAL_N."
-    try:
-        return netname[0:netname.rindex("_")]
-    except ValueError:
-        return netname
+    if netname.endswith('_N') or netname.endswith("_P"):
+        return netname[:-2]
+    if netname.endswith('+') or netname.endswith("-"):
+        return netname[:-1]
+    return netname
 
 def median(x):
     "Return median from a list of values. Thanks to http://stackoverflow.com/a/25791644"
