@@ -190,12 +190,12 @@ def test_pairs(netclass, intra_tolerance, inter_tolerance, pairs):
 
     matches = True
 
-    print_color(BRIGHTGREEN if meets else BRIGHTRED, "%s -> %s INTER-PAIR TOLERANCE %.2f (max variance %.2f)" % (netclass, "MEETS" if meets else "FAILS", nm_to_mm(inter_tolerance), nm_to_mm(delta)))
+    print_color(BRIGHTGREEN if meets else BRIGHTRED, "%s -> %s INTER-PAIR TOLERANCE %.4f mm (max variance %.4f)" % (netclass, "MEETS" if meets else "FAILS", nm_to_mm(inter_tolerance), nm_to_mm(delta)))
     if not meets:
         matches = False
         # print mean length of each pair
         for pair in pairs:
-            print("  %s mean length %.1f" % (get_pairname(pair[0][0]), nm_to_mm(mean([p[1] for p in pair]))))
+            print("  %s mean length %.4f mm" % (get_pairname(pair[0][0]), nm_to_mm(mean([p[1] for p in pair]))))
 
     for pair in pairs:
         mintrace = min(p[1] for p in pair)
@@ -203,13 +203,13 @@ def test_pairs(netclass, intra_tolerance, inter_tolerance, pairs):
         tracedelta = maxtrace - mintrace
         meantrace = mean([p[1] for p in pair])
         meets = tracedelta < intra_tolerance
-        print_color(ENDC if meets else RED, "    %s %s intra-pair tolerance %.2f (max variance %.2f)" % (get_pairname(pair[0][0]), "meets" if meets else "fails",
+        print_color(ENDC if meets else RED, "    %s %s intra-pair tolerance %.4f mm (max variance %.4f)" % (get_pairname(pair[0][0]), "meets" if meets else "fails",
                                                                            nm_to_mm(intra_tolerance), nm_to_mm(tracedelta)))
         # print comparison of each net length to the mean length in this pair
         if not meets:
             matches = False
             for p in pair:
-                print_color(RED, "        %s length %.2f (%.2f)" % (p[0], nm_to_mm(p[1]), nm_to_mm(p[1]-meantrace)))
+                print_color(RED, "        %s length %.4f (%.4f)" % (p[0], nm_to_mm(p[1]), nm_to_mm(p[1]-meantrace)))
 
     return matches
 
